@@ -1,0 +1,65 @@
+[0m[1mc[44m[37m[3;3f                                                                     [3;5fLEARN YOU THE NODE.JS FOR MUCH WIN![44m[37m[4;3f                                                                     [4;5f[23mSelect an exercise and hit [3mEnter[23m to begin[44m[37m[5;3f                                                                     [5;5f─────────────────────────────────────────────────────────────────[6;3f                                                                     [7;3f                                                                     [8;3f                                                                     [9;3f                                                                     [10;3f                                                                     [11;3f                                                                     [12;3f                                                                     [13;3f                                                                     [14;3f                                                                     [15;3f                                                                     [16;3f                                                                     [17;3f                                                                     [18;3f                                                                     [44m[37m[19;3f                                                                     [19;5f─────────────────────────────────────────────────────────────────[20;3f                                                                     [21;3f                                                                     [22;3f                                                                     [23;3f                                                                     [?25l[2;3f                                                                     [6;5f[47m[34m» HELLO WORLD                                         [COMPLETED][7;5f[44m[37m» BABY STEPS                                          [COMPLETED][8;5f[44m[37m» MY FIRST I/O!                                       [COMPLETED][9;5f[44m[37m» MY FIRST ASYNC I/O!                                 [COMPLETED][10;5f[44m[37m» FILTERED LS                                         [COMPLETED][11;5f[44m[37m» MAKE IT MODULAR                                     [COMPLETED][12;5f[44m[37m» HTTP CLIENT                                         [COMPLETED][13;5f[44m[37m» HTTP COLLECT                                        [COMPLETED][14;5f[44m[37m» JUGGLING ASYNC                                      [COMPLETED][15;5f[44m[37m» TIME SERVER                                                    [16;5f[44m[37m» HTTP FILE SERVER                                               [17;5f[44m[37m» HTTP UPPERCASERER                                              [18;5f[44m[37m» HTTP JSON API SERVER                                           [20;5f[44m[37mHELP                                                             [21;5f[44m[37mCHOOSE LANGUAGE                                                  [22;5f[44m[37mCREDITS                                                          [23;5f[44m[37mEXIT                                                             [44m[37m[24;3f                                                                     [6;5f[44m[37m» HELLO WORLD                                         [COMPLETED][7;5f[47m[34m» BABY STEPS                                          [COMPLETED][7;5f[44m[37m» BABY STEPS                                          [COMPLETED][6;5f[47m[34m» HELLO WORLD                                         [COMPLETED][6;5f[44m[37m» HELLO WORLD                                         [COMPLETED][7;5f[47m[34m» BABY STEPS                                          [COMPLETED][7;5f[44m[37m» BABY STEPS                                          [COMPLETED][8;5f[47m[34m» MY FIRST I/O!                                       [COMPLETED][8;5f[44m[37m» MY FIRST I/O!                                       [COMPLETED][9;5f[47m[34m» MY FIRST ASYNC I/O!                                 [COMPLETED][9;5f[44m[37m» MY FIRST ASYNC I/O!                                 [COMPLETED][10;5f[47m[34m» FILTERED LS                                         [COMPLETED][10;5f[44m[37m» FILTERED LS                                         [COMPLETED][11;5f[47m[34m» MAKE IT MODULAR                                     [COMPLETED][11;5f[44m[37m» MAKE IT MODULAR                                     [COMPLETED][12;5f[47m[34m» HTTP CLIENT                                         [COMPLETED][12;5f[44m[37m» HTTP CLIENT                                         [COMPLETED][13;5f[47m[34m» HTTP COLLECT                                        [COMPLETED][13;5f[44m[37m» HTTP COLLECT                                        [COMPLETED][14;5f[47m[34m» JUGGLING ASYNC                                      [COMPLETED][14;5f[44m[37m» JUGGLING ASYNC                                      [COMPLETED][15;5f[47m[34m» TIME SERVER                                                    [25;1f[0mc[?25h[0m[1;1f
+ LEARN YOU THE NODE.JS FOR MUCH WIN!
+─────────────────────────────────────
+ TIME SERVER
+$(cat custom.txt)
+ Exercise 10 of 13
+
+Write a TCP time server!
+
+Your server should listen to TCP connections on the port provided by the first argument to your program. For each connection you must write the current date & 24 hour time in the format:
+
+    [92m"YYYY-MM-DD hh:mm"[39m
+
+followed by a newline character. Month, day, hour and minute must be zero-filled to 2 integers. For example:
+
+    [92m"2013-07-06 17:42"[39m
+
+-------------------------------------------------------------------------------
+
+## HINTS
+
+For this exercise we'll be creating a raw TCP server. There's no HTTP involved here so we need to use the net module from Node core which has all the basic networking functions.
+
+The net module has a method named net.createServer() that takes a callback function. Unlike most callbacks in Node, the callback used by createServer() is called more than once. Every connection received by your server triggers another call to the callback. The callback function has the signature:
+
+    [94mfunction[39m [37mcallback[39m [90m([39m[37msocket[39m[90m)[39m [33m{[39m [90m/* ... */[39m [33m}[39m
+
+net.createServer() also returns an instance of your server. You must call server.listen(portNumber) to start listening on a particular port.
+
+A typical Node TCP server looks like this:
+
+    [32mvar[39m [37mnet[39m [93m=[39m [37mrequire[39m[90m([39m[92m'net'[39m[90m)[39m
+    [32mvar[39m [37mserver[39m [93m=[39m [37mnet[39m[32m.[39m[37mcreateServer[39m[90m([39m[94mfunction[39m [90m([39m[37msocket[39m[90m)[39m [33m{[39m
+      [90m// socket handling logic[39m
+    [33m}[39m[90m)[39m
+    [37mserver[39m[32m.[39m[37mlisten[39m[90m([39m[34m8000[39m[90m)[39m
+
+Remember to use the port number supplied to you as the first command-line argument.
+
+The socket object contains a lot of meta-data regarding the connection, but it is also a Node duplex Stream, in that it can be both read from, and written to. For this exercise we only need to write data and then close the socket.
+
+Use socket.write(data) to write data to the socket and socket.end() to close the socket. Alternatively, the .end() method also takes a data object so you can simplify to just: socket.end(data).
+
+Documentation on the net module can be found by pointing your browser here:
+
+  file:///usr/local/lib/node_modules/learnyounode/node_apidoc/net.html
+
+To create the date, you'll need to create a custom format from a new Date() object. The methods that will be useful are:
+
+    [37mdate[39m[32m.[39m[37mgetFullYear[39m[90m([39m[90m)[39m
+    [37mdate[39m[32m.[39m[37mgetMonth[39m[90m([39m[90m)[39m     [90m// starts at 0[39m
+    [37mdate[39m[32m.[39m[37mgetDate[39m[90m([39m[90m)[39m      [90m// returns the day of month[39m
+    [37mdate[39m[32m.[39m[37mgetHours[39m[90m([39m[90m)[39m
+    [37mdate[39m[32m.[39m[37mgetMinutes[39m[90m([39m[90m)[39m
+
+Or, if you want to be adventurous, use the strftime package from npm. The strftime(fmt, date) function takes date formats just like the unix date command. You can read more about strftime at: [https://github.com/samsonjs/strftime](https://github.com/samsonjs/strftime)
+
+-------------------------------------------------------------------------------
+
+ » To print these instructions again, run: learnyounode print
+ » To execute your program in a test environment, run: learnyounode run program.js
+ » To verify your program, run: learnyounode verify program.js
+ » For help run: learnyounode help
+
+
